@@ -5,11 +5,25 @@
 {% block background %}{% load static %}{% static 'core/img/about.png' %}{% endblock %}
 
 {% block headers %}
-<h1>Portafolio</h1>
+<h1 class="mb-4">Portafolio</h1>
 {% endblock %}
 
 {% block content %}
-{% for project in projects %} <!-- Itera sobre la lista de proyectos -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="GET" action="{% url 'portfolio' %}" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar proyecto por nombre"
+                        aria-label="Buscar proyecto por nombre" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="submit" id="button-addon2">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% for project in projects %}
 <!-- Proyecto -->
 <div class="row project">
     <div class="col-lg-3 col-md-4 offset-lg-1">
@@ -19,21 +33,44 @@
         <h2 class="section-heading title">{{project.title}}</h2>
         <p>{{project.description}}</p>
         {% if project.link %}
-        <p><a href="{{project.link}}">Más información</a></p>
+        <p><a href="{{project.link}}" class="btn btn-secondary">Más información</a></p>
         {% endif %}
     </div>
 </div>
-{% endfor %}<!-- Finaliza el bucle de proyectos -->
-{% block skills %}<!-- Define el bloque de habilidades -->
+{% endfor %}
+
+{% block skills %}
 <div class="row">
     <div class="col-lg-10 col-md-10 mx-auto">
-        <h2>Aptitudes</h2><!-- Título de la sección de habilidades -->
+        <h2>Aptitudes</h2>
         <p> Bases de datos · Computación · AngularJS · Tecnologías web · Diseño · Programación de aplicaciones ·
             Material Design de Google · Desarrollo web back end · Aptitudes de organización · Desarrollo web · Angular ·
             Liderazgo · HTML5 · Diseño web · Diseño web adaptable · Hojas de estilos en cascada (CSS) · HTML · Diseño de
-            la interfaz de usuario · Aplicaciones web </p><!-- Lista de habilidades -->
+            la interfaz de usuario · Aplicaciones web </p>
     </div>
 </div>
 {% endblock %}
 
+<!-- Estilos CSS -->
+<style>
+    /* Estilos para el buscador */
+    .input-group {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .input-group input[type="text"] {
+        border-radius: 20px;
+        padding: 10px 20px;
+        border: 1px solid #ced4da;
+    }
+
+    .input-group button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        padding: 10px 20px;
+    }
+</style>
 {% endblock %}
